@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+
+div.tile-header
+{
+	float: none;
+   height: 31%;
+   margin: 0 0 9% 0;
+   position: relative;
+   min-height: 70px;
+   background-color:#165EA7;
+   width: 98%;
+}
+
+.button7{
+	padding-top: 9px;
+	padding-bottom: 9px;		
+}
+
