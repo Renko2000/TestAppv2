@@ -95,7 +95,7 @@ $('#news-page').on('pagebeforeshow',function(event){
                 var description = entry.contentSnippet;
                 var pubDate = entry.publishedDate;
 
-                var html = "<div class='entry'><h4 class='postTitle'><a class='fancy block' href='" + link + "' target='_blank'>" + title + "</a></h4>";
+                var html = "<div class='entry'><ul><li class='postTitle'><a class='fancy block' href='" + link + "' target='_blank'>" + title + "</a></li></ul>";
                 html += "<em class='date'>" + pubDate + "</em>";
                 html += "<p class='description'>" + description + "</p></div>";
 				
