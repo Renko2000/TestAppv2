@@ -56,7 +56,7 @@
   </header>
   <div role="main">
     
-    <div id="portfolioPage" data-role="page" class="page innerPage">
+    <div id="miniPage" data-role="page" class="page innerPage">
       <div class="topGrahic"></div>
       <a href="index.html" class="menuButton">
         <img src="img/menu-button.png" alt="Menu">
@@ -70,14 +70,141 @@
     
       
     
-<div class="padpage padbottom">    
+<div class="padpage padbottom"> 
+	<!--<button id="logout_btn">Log Out</button>-->   
+    <!--<input type="submit" class="button buttonStrong right" value="Log Out" id="logout_btn">
+      <a href="#" id="logout_btn" class="button button7">Log Out</a>-->
+              <div id="login">
+                  <form action="" method="post" name="login">
+                        <label for="number" id="number_label">NSSF Number</label>
+                        <input name="number" id="number" type="text">
+                        <div class="alert" id="number_alert">
+                            <div class="typo-icon">
+                            NSSF Number is required.
+                            </div>
+                        </div>
+                        <label for="password" id="password_label">Password</label>
+                        <input name="password" id="password" type="password">
+                        <div class="alert" id="password_alert">
+                            <div class="typo-icon">
+                            Password is required.
+                            </div>
+                        </div>
+                        <input type="submit" class="button buttonStrong right" value="Log in" name="buttonSubmit" id="submit_btn">
+                        <!--<a id="submit_btn" class="button button7">Submit</a>-->
+                  </form>
+              </div>
     
-      <p>Mini statement content goes here.</p>
-    
+</div>       
       
- </div>     
-      
-      
+<script>
+$('#miniPage').on('pagebeforeshow',function(event){
+	$('.alert').hide();
+	$('#logout_btn').hide();
+	});
+	
+	/*$("a:jqmData(clickload='logout')").on('click', function() {
+		console.log('clicked logout');
+		//$.mobile.showPageLoadingMsg("b", "This is only a test", true);
+	});*/
+	
+	$('#logout_btn').live('click', function(e) {
+		var url = $(this).attr('href');
+		$.mobile.changePage( url, { reloadPage: true, transition: "none"} );
+	});
+					
+					
+			
+
+            $(function(){
+				$('.alert').hide();
+				$('#logout_btn').hide();
+				$('#submit_btn').click(function(){
+					$('.alert').hide();
+					var number = $('input#number').val();
+					if(number == '')
+					{
+						$('div#number_alert').show();
+						$('input#number').focus();
+						return false;
+					}
+					var password = $('input#password').val();
+					if(password == '')
+					{
+						$('div#password_alert').show();
+						$('input#password').focus();
+						return false;
+					}
+					var dataString = 'number=' + number + '&password=' + password + '&limit=true';
+					
+					var ajax_load = "<img class='loading' src='img/ajax-loader.gif' alt='loading...' />";
+					//var loadUrl = "http://localhost/nssf/mobile/estatement";
+					
+					$("#login").prepend(ajax_load);
+					
+					var output = $('#login');
+					$.ajax({
+						//url: 'http://kaingroup.net/nssf_server/index.php/members/get/?'+dataString,
+						url: 'http://196.0.10.138/xmlrpc_server/index.php/members/get/?'+dataString,
+						dataType: 'jsonp',
+						jsonp: 'jsoncallback',
+						timeout: 5000,
+						success: function(data, status){
+							if(data.error_no[0]==1)
+							{
+								 $('.loading').hide();
+								 $("#login").prepend('<div class="alert"><div class="typo-icon">No contributions found.</div></div>');
+								 
+							}
+							else if(data.error_no[0]==2)
+							{
+								$('.loading').hide();
+								 $("#login").prepend('<div class="alert"><div class="typo-icon">NSSF Number & password do not match.</div></div>');
+							}
+							else
+							{
+																		
+									$('#login').html('');
+									$('#login').append('<a href="#" id="logout_btn" data-role="button" data-clickload="logout">Log Out</a>');
+									$('#login').append('<h3>'+data.name[0]+'</h3>');
+									$('#login').append('<h4>'+data.begin[0]+' to '+data.end[0]+'</h4>');
+									var cont = '<table cellpadding="0" cellspacing="0" class="table3" width="99%">'+
+															'<tr>'+
+															'<thead>'+
+																'<th>Type</th>'+
+																'<th>Date</th>'+
+																'<th>Amount</th>'+
+															'</thead>'+
+															'<tbody>';
+															
+									$.each(data.trans[0], function(i,item){ 
+										var tr = item.split(';');
+										var amt = addCommas(parseInt(tr[2]));
+										cont += '<tr><td>'+tr[0]+'</td><td>'+tr[1]+'</td><td>'+amt+'</td></tr>';	
+									});	
+									
+									cont += '</tbody></tr></table>';
+									
+									$('#login').append(cont);					
+									
+									$('#login').trigger('create');
+							}
+						},
+						error: function(){
+							$('.loading').hide();
+							$("#login").prepend('<div class="alert"><div class="typo-icon">The connection to the server timed out. Please check your internet connection.</div></div>');
+						}
+					});
+
+					 
+					return false;
+				});	
+				
+				
+									
+			});
+            
+            </script>       
     
     
       
