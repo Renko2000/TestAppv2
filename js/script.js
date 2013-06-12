@@ -52,9 +52,13 @@ $(document).ready(function(){
                 } else{
                     totalWidth += $(this).outerWidth()+5;
                 }
+				
             });
             
             console.log(totalWidth);
+			var msg = $('.messages');
+			msg.css({'width' : totalWidth-20});
+			
             $('.menu', scrollContainer).css({    
                 'width' : totalWidth
             });            

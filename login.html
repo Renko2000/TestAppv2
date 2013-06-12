@@ -145,8 +145,8 @@ $('#login-page').on('pagebeforeshow',function(event){
 					
 					var output = $('#login');
 					$.ajax({
-						url: 'http://kaingroup.net/nssf_server/index.php/members/get/?'+dataString,
-						//url: 'http://196.0.10.138/xmlrpc_server/index.php/members/get/?'+dataString,
+						//url: 'http://kaingroup.net/nssf_server/index.php/members/get/?'+dataString,
+						url: 'http://196.0.10.138/xmlrpc_server/index.php/members/get/?'+dataString,
 						dataType: 'jsonp',
 						jsonp: 'jsoncallback',
 						timeout: 5000,

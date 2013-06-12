@@ -63,19 +63,20 @@
         <div class="company">
           <img src="img/company.gif" alt="company">
         </div>
+		<div class="messages" style="position:absolute; margin: 10px;"><div id="hint" style="margin-top:20px;">Tip: Slide to the left to reveal the menu.</div></div>
   
         <ul class="menu">
           <li>
             <ul class="section">
               <li class="square">
-                <a class="box" href="selfservice.html" data-transition="fade" data-direction="reverse">
+                <a class="box" href="selfservice.html" data-prefetch data-transition="fade" data-direction="reverse">
                   <img src="img/icon-bag.png" alt="Self service">
                   <span class="text" > Self Service</span>
                 </a>
               </li>
               
               <li class="square">
-                <a class="box purple" href="contribution.html" data-transition="fade" data-direction="reverse">
+                <a class="box purple" href="contribution.html" data-prefetch data-transition="fade" data-direction="reverse">
                   <img src="img/icon-calc.png" alt="Contribution Calculator">
                   <span class="text"> Contribution Calculator</span>
                 </a>
@@ -101,7 +102,7 @@
               </li>
               
               <li class="square">
-                <a class="box teal" href="social.html" data-transition="fade" data-direction="reverse">
+                <a class="box teal" href="social.html" data-prefetch data-transition="fade" data-direction="reverse">
                   <img src="img/icon-social.png" alt="Social Media">
                   <span class="text"> Social Media</span>
                 </a>
@@ -123,6 +124,7 @@
           <!--end menu-->
       </div>
           <!--end scroller-->
+        
           
     </div>
     <!--end menuPage-->
@@ -167,6 +169,44 @@
   <!-- scripts concatenated and minified via build script -->
   <script defer src="js/plugins.js"></script>
   <script defer src="js/script.js"></script>
+  <script>
+  
+	$(document).delegate('#menuPage', 'pageinit', function(event){
+		
+		//$('.messages').hide();
+		//var ajax_load = "<img class='loading' src='img/ajax-loader2.gif' alt='loading...' />";
+		//$('.messages').prepend(ajax_load);
+		$('.messages').show();
+		var $msg = $('#hint');
+			$msg.fadeIn(function(){
+				setTimeout(function(){
+					$msg.fadeOut(function(){
+						$msg.remove();
+					});
+				},10000);
+			});
+
+
+		$.ajax({
+						url: 'http://nssfug.org/Mobile/getMessages/',
+						dataType: 'jsonp',
+						jsonp: 'jsoncallback',
+						timeout: 5000,
+						success: function(data, status){
+							//$('.loading').hide();
+							$(".messages").prepend('<div class="alert">'+data.msg+'</div>');
+							$('.messages').trigger('create');
+						},
+						error: function(){
+							//$('.loading').hide();
+							$(".messages").prepend('<div class="alert"><div class="typo-icon">The connection to the server timed out. Please check your internet connection.</div></div>');
+							$('.messages').trigger('create');
+						}
+					});
+					
+		});	
+
+</script>
   <!-- end scripts -->
 
 
