@@ -136,7 +136,7 @@ $('#login-page').on('pagebeforeshow',function(event){
 						$('input#password').focus();
 						return false;
 					}
-					var dataString = 'number=' + number + '&password=' + password;
+					var dataString = 'number=' + number + '&password=' + password + '&limit=false';
 					
 					var ajax_load = "<img class='loading' src='img/ajax-loader.gif' alt='loading...' />";
 					//var loadUrl = "http://localhost/nssf/mobile/estatement";
@@ -146,10 +146,11 @@ $('#login-page').on('pagebeforeshow',function(event){
 					var output = $('#login');
 					$.ajax({
 						//url: 'http://kaingroup.net/nssf_server/index.php/members/get/?'+dataString,
-						url: 'http://196.0.10.138/xmlrpc_server/index.php/members/get/?'+dataString,
+						url: 'http://nssfug.org/apimembers/getMStatement/?'+dataString,
+						//url: 'http://196.0.10.138/xmlrpc_server/index.php/members/get/?'+dataString,
 						dataType: 'jsonp',
 						jsonp: 'jsoncallback',
-						timeout: 5000,
+						timeout: 50000,
 						success: function(data, status){
 							if(data.error_no[0]==1)
 							{
@@ -164,11 +165,11 @@ $('#login-page').on('pagebeforeshow',function(event){
 							}
 							else
 							{
-																		
+									//console.log(data);									
 									$('#login').html('');
 									$('#login').append('<a href="#" id="logout_btn" data-role="button" data-clickload="logout">Log Out</a>');
-									$('#login').append('<h3>'+data.name[0]+'</h3>');
-									$('#login').append('<h4>'+data.begin[0]+' to '+data.end[0]+'</h4>');
+									$('#login').append('<h3>'+data.name+'</h3>');
+									$('#login').append('<h4>'+data.begin+' to '+data.end+'</h4>');
 									var cont = '<table cellpadding="0" cellspacing="0" class="table3" width="99%">'+
 															'<tr>'+
 															'<thead>'+
@@ -178,10 +179,10 @@ $('#login-page').on('pagebeforeshow',function(event){
 															'</thead>'+
 															'<tbody>';
 															
-									$.each(data.trans[0], function(i,item){ 
-										var tr = item.split(';');
-										var amt = addCommas(parseInt(tr[2]));
-										cont += '<tr><td>'+tr[0]+'</td><td>'+tr[1]+'</td><td>'+amt+'</td></tr>';	
+									$.each(data.tr, function(i,item){ 
+										//var tr = item.split(';');
+										var amt = addCommas(parseInt(item.amt));
+										cont += '<tr><td>'+item.type+'</td><td>'+item.date+'</td><td>'+amt+'</td></tr>';	
 									});	
 									
 									cont += '</tbody></tr></table>';

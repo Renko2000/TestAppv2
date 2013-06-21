@@ -247,7 +247,7 @@ var App = {
             }, 700);
         })
         
-        this.Forms.bind();
+        //this.Forms.bind();
         this.refreshMaps();
         
     },
@@ -303,7 +303,7 @@ var App = {
      
      
             
-            Forms: {
+           /* Forms: {
                bind: function() {
                   // Add required class to inputs
                   $(':input[required]').addClass('required');
@@ -384,7 +384,7 @@ var App = {
                           return false;
                   }
                }
-            }
+            } */
            
      
      
