@@ -231,7 +231,7 @@ var App = {
             e.preventDefault();
             
             if ($(this).hasClass('opened')){
-                console.log("here");
+                //console.log("here");
                 $('.map').empty().removeClass('large');
                 $(this).removeClass('opened').removeClass('notransform');
             } else{
