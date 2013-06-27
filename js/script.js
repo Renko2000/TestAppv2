@@ -57,7 +57,7 @@ $(document).ready(function(){
             
             console.log(totalWidth);
 			var msg = $('.messages');
-			msg.css({'width' : totalWidth-20});
+			msg.css({'width' : totalWidth-20 - parseInt($('.ui-page-active .menu .square:first').css('margin-bottom'))});
 			
             $('.menu', scrollContainer).css({    
                 'width' : totalWidth
@@ -65,6 +65,10 @@ $(document).ready(function(){
             
             $('.company', scrollContainer).css({
                 'height': $('.menu', scrollContainer).height()
+            });
+			
+			$('.company', scrollContainer).css({    
+                'width' : totalWidth - parseInt($('.ui-page-active .menu .square:first').css('margin-bottom'))
             });
             
             $('.ui-page-active .menu').css('left', parseInt($('.ui-page-active .company img').width()) + parseInt($('.ui-page-active .menu .square:first').css('margin-bottom')));
@@ -426,6 +430,194 @@ function addCommas(nStr)
 			}	
 	
         
-    
+$('#calculate1').live('click', function(e) {
+		var res = $('#result1');
+		var salary = $('#input1').val();
+		res.html('');
+		res.append('<p><strong>Your contribution:</strong> ' + formatNumber((salary*0.05),2) + '/=</p>');
+		res.append('<p><strong>Employers contribution:</strong> ' + formatNumber((salary*0.1),2) + '/=</p>');
+		res.append('<p><strong>Total contribution:</strong> ' + formatNumber((salary*0.15),2) + '/=</p>');
+		res.addClass("ui-state-highlight");
+	});
+
+$('#calculate2').live('click', function(e) {
+		zeroBlanks(document.futCalc);
+		var p = $('#current').val();
+		var c = $('#annual').val();
+		var r = numval($('#rate').val())/100;
+		var y = numval($('#years').val());
+		var n = 1;
+		 
+		var futureValue = formatNumber(bI2(p,r/n,y*n,c/n),2);
+		
+		var res = $('#result2');
+		res.html('');
+		res.append('<p><strong>Your future value would be: ' + futureValue + '/=</strong></p>');
+		res.addClass("ui-state-highlight");
+	});
+
+	function bI2(p,r,y,c)
+{
+	if (c == null) c = 0;
+	if (y == 0) return p;
+	return futureValue(p,r,y) + c*geomSeries(1+r,0,y-1);
+}
+
+
+function zeroBlanks(formname)
+{
+	var i, ctrl;
+	for (i = 0; i < formname.elements.length; i++)
+	{
+		ctrl = formname.elements[i];
+		if (ctrl.type == "text")
+		{
+			if (makeNumeric(ctrl.value) == "")
+				ctrl.value = "0";
+		}
+	}
+}
+
+function filterChars(s, charList)
+{
+	var s1 = "" + s; // force s1 to be a string data type
+	var i;
+	for (i = 0; i < s1.length; )
+	{
+		if (charList.indexOf(s1.charAt(i)) < 0)
+			s1 = s1.substring(0,i) + s1.substring(i+1, s1.length);
+		else
+			i++;
+	}
+	return s1;
+}
+
+function makeNumeric(s)
+{
+	return filterChars(s, "1234567890.-");
+}
+
+function numval(val,digits,minval,maxval)
+{
+	val = makeNumeric(val);
+	if (val == "" || isNaN(val)) val = 0;
+	val = parseFloat(val);
+	if (digits != null)
+	{
+		var dec = Math.pow(10,digits);
+		val = (Math.round(val * dec))/dec;
+	}
+	if (minval != null && val < minval) val = minval;
+	if (maxval != null && val > maxval) val = maxval;
+	return parseFloat(val);
+}
+
+function formatNumber(val,digits,minval,maxval)
+{
+	var sval = "" + numval(val,digits,minval,maxval);
+	var i;
+	var iDecpt = sval.indexOf(".");
+	if (iDecpt < 0) iDecpt = sval.length;
+	if (digits != null && digits > 0)
+	{
+		if (iDecpt == sval.length)
+			sval = sval + ".";
+		var places = sval.length - sval.indexOf(".") - 1;
+		for (i = 0; i < digits - places; i++)
+			sval = sval + "0";
+	}
+	var firstNumchar = 0;
+	if (sval.charAt(0) == "-") firstNumchar = 1;
+	for (i = iDecpt - 3; i > firstNumchar; i-= 3)
+		sval = sval.substring(0, i) + "," + sval.substring(i);
+
+	return sval;
+}
+
+function presentValue(fv,r,y)
+{
+	return fv/Math.pow(1+r,y);
+}
+
+function futureValue(p,r,y)
+{
+	return p*Math.pow(1+r,y);
+}
+
+function returnRate(pv,fv,y)
+{
+	return Math.pow(fv/pv,1.0/y) - 1.0;
+}
+
+function geomSeries(z,m,n)
+{
+	var amt;
+	if (z == 1.0) amt = n + 1;
+	else amt = (Math.pow(z,n + 1) - 1)/(z - 1);
+	if (m >= 1) amt -= geomSeries(z,0,m-1);
+	return amt;
+}
+
+function basicInvestment(p,r,y,c)
+{
+	if (c == null) c = 0;
+
+	return futureValue(p,r,y) + c*geomSeries(1+r,1,y);
+}
+
+function annuityPayout(p,r,y)
+{
+	return futureValue(p,r,y-1)/geomSeries(1+r,0,y-1);
+}
+
+function mortgagePayment(p,r,y)
+{
+	return futureValue(p,r,y)/geomSeries(1+r,0,y-1);
+}
+
+function randN(m,s)
+{
+	return s*Math.sqrt(-2*Math.log(Math.random()))*Math.cos(2*Math.PI*Math.random()) + m;
+}
+
+function logNmean(m,s)
+{
+	return Math.log(m) - (Math.pow(logNsigma(m,s),2)/2);
+}
+
+function logNsigma(m,s)
+{
+	return Math.sqrt(Math.log(Math.pow(s/m,2) + 1));
+}
+
+function gmEst(r_am,s)
+{
+	return Math.sqrt(Math.pow(1 + r_am, 2) - Math.pow(s,2)) - 1;
+}
+
+function numOrder(n, m)
+{
+	return n - m;
+}
+
+$('#login-page').on('pagebeforeshow',function(event){
+	$('.alert').hide();
+	$('#logout_btn').hide();
+	});
+	
+	/*$("a:jqmData(clickload='logout')").on('click', function() {
+		console.log('clicked logout');
+		//$.mobile.showPageLoadingMsg("b", "This is only a test", true);
+	});*/
+	
+	$('#logout_btn').live('click', function(e) {
+		var url = $(this).attr('href');
+		$.mobile.changePage( url, { reloadPage: true, transition: "none"} );
+	});
+					
+					
+			
+
+   
     
     

@@ -63,7 +63,11 @@
         <div class="company">
           <img src="img/company.gif" alt="company">
         </div>
-		<div class="messages" style="position:absolute; margin: 10px;"><div id="hint" style="margin-top:20px;">Tip: Slide to the left to reveal the menu.</div></div>
+		<div class="messages" style="position:absolute; margin: 10px;">
+        	<div id="hint" style="margin-top:20px;">
+            	<h1><a class="back" href="#"><img src="img/icon-back.png" alt="Back"> Slide for menu</a></h1>
+            </div>
+        </div>
   
         <ul class="menu">
           <li>
@@ -178,13 +182,13 @@
 		//$('.messages').prepend(ajax_load);
 		$('.messages').show();
 		var $msg = $('#hint');
-			$msg.fadeIn(function(){
+			/*$msg.fadeIn(function(){
 				setTimeout(function(){
 					$msg.fadeOut(function(){
 						$msg.remove();
 					});
 				},10000);
-			});
+			});*/
 
 
 		$.ajax({

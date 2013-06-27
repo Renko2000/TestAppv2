@@ -99,25 +99,7 @@
       
       
 <script>
-$('#login-page').on('pagebeforeshow',function(event){
-	$('.alert').hide();
-	$('#logout_btn').hide();
-	});
-	
-	/*$("a:jqmData(clickload='logout')").on('click', function() {
-		console.log('clicked logout');
-		//$.mobile.showPageLoadingMsg("b", "This is only a test", true);
-	});*/
-	
-	$('#logout_btn').live('click', function(e) {
-		var url = $(this).attr('href');
-		$.mobile.changePage( url, { reloadPage: true, transition: "none"} );
-	});
-					
-					
-			
-
-            $(function(){
+$(function(){
 				$('.alert').hide();
 				$('#logout_btn').hide();
 				$('#submit_btn').click(function(){
@@ -204,7 +186,7 @@ $('#login-page').on('pagebeforeshow',function(event){
 				
 				
 									
-			});
+}); 
             
             </script>      
     
