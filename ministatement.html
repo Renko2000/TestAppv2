@@ -153,7 +153,7 @@ $('#miniPage').on('pagebeforeshow',function(event){
 							if(data.error_no[0]==1)
 							{
 								 $('.loading').hide();
-								 $("#login").prepend('<div class="alert"><div class="typo-icon">No contributions found.</div></div>');
+								 $("#mini").prepend('<div class="alert"><div class="typo-icon">No contributions found for the last 30 months.</div></div>');
 								 
 							}
 							else if(data.error_no[0]==2)
