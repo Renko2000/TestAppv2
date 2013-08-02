@@ -172,6 +172,8 @@ $(function(){
 									$('#login').append(cont);					
 									
 									$('#login').trigger('create');
+									$('tr:last').css({fontWeight:'bolder'});
+									$('tr:last').css({border-top-width: "1px",border-top-style: "solid",border-top-color: "#333"});
 							}
 						},
 						error: function(){

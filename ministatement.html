@@ -188,6 +188,9 @@ $('#miniPage').on('pagebeforeshow',function(event){
 									$('#mini').append(cont);					
 									
 									$('#mini').trigger('create');
+									$('tr:last').css({fontWeight:'bolder'});
+									$('tr:last').css({border-top-width: "1px",border-top-style: "solid",border-top-color: "#333"});
+									
 							}
 						},
 						error: function(){

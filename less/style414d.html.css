@@ -1,4 +1,9 @@
-
+.table3 tr:last-child{
+	font-weight: bold;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #333;	
+}
 .clearfix{
 	clear:both;
 }
@@ -130,8 +135,8 @@ p { margin-bottom:14px; }
   margin-bottom:20px;
 }
 .successMessage p { margin:0; }
-::-webkit-input-placeholder { color:#c0ed71; }
-input:-moz-placeholder { color:#c0ed71; }
+::-webkit-input-placeholder { color:#262222; }
+input:-moz-placeholder { color:#262222; }
 .invalid {
   background-color:#fff !important;
   border-color:#689913 !important;
@@ -143,7 +148,7 @@ input:-moz-placeholder { color:#c0ed71; }
   border-width:0 1px 1px 0;
   border-style:solid;
   border-color:#dadada;
-  color:#689913;
+  color:#262222;
   width:100%;
   padding:0 5px;
   box-sizing:border-box;
