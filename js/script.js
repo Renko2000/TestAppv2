@@ -610,14 +610,191 @@ $('#login-page').on('pagebeforeshow',function(event){
 		//$.mobile.showPageLoadingMsg("b", "This is only a test", true);
 	});*/
 	
-	$('#logout_btn').live('click', function(e) {
+$('#logout_btn').live('click', function(e) {
 		var url = $(this).attr('href');
 		$.mobile.changePage( url, { reloadPage: true, transition: "none"} );
 	});
 					
+$('#submit_btn2').live('click', function(e){
+				e.preventDefault();
+				console.log('clicked mini');
+				$('.alert').hide();
+				$('#logout_btn2').hide();
+				
+				
+					//$('.alert').hide();
+					var number = $('input#number2').val();
+					if(number == '')
+					{
+						$('div#number2_alert').show();
+						$('input#number2').focus();
+						return false;
+					}
+					var password = $('input#password2').val();
+					if(password == '')
+					{
+						$('div#password2_alert').show();
+						$('input#password2').focus();
+						return false;
+					}
+					//console.log('clicked login');
+					var dataString = 'number=' + number + '&password=' + password + '&limit=true';
 					
+					var ajax_load = "<img class='loading' src='img/ajax-loader.gif' alt='loading...' />";
+					//var loadUrl = "http://localhost/nssf/mobile/estatement";
+					
+					$("#mini").prepend(ajax_load);
+					
+					var output = $('#mini');
+					$.ajax({
+						url: 'http://nssfug.org/apimembers/getMStatement/?'+dataString,
+						dataType: 'jsonp',
+						async: false,
+						jsonp: 'jsoncallback',
+						timeout: 50000,
+						success: function(data, status){
+							if(data.error_no[0]==1)
+							{
+								 $('.loading').hide();
+								 $("#mini").prepend('<div class="alert"><div class="typo-icon">No contributions found for the last 30 months.</div></div>');
+								 
+							}
+							else if(data.error_no[0]==2)
+							{
+								$('.loading').hide();
+								 $("#mini").prepend('<div class="alert"><div class="typo-icon">NSSF Number & password do not match.</div></div>');
+							}
+							else
+							{
+									//console.log(data);									
+									$('#mini').html('');
+									$('#mini').append('<a href="#" id="logout_btn2" data-role="button" data-clickload="logout">Log Out</a>');
+									$('#mini').append('<h3>'+data.name+'</h3>');
+									$('#mini').append('<h4>'+data.begin+' to '+data.end+'</h4>');
+									var cont = '<table cellpadding="0" cellspacing="0" class="table3" width="99%">'+
+															'<tr>'+
+															'<thead>'+
+																'<th>Type</th>'+
+																'<th>Date</th>'+
+																'<th>Amount</th>'+
+															'</thead>'+
+															'<tbody>';
+															
+									$.each(data.tr, function(i,item){ 
+										//var tr = item.split(';');
+										var amt = addCommas(parseInt(item.amt));
+										cont += '<tr><td>'+item.type+'</td><td>'+item.date+'</td><td>'+amt+'</td></tr>';	
+									});	
+									
+									cont += '</tbody></tr></table>';
+									
+									$('#mini').append(cont);					
+									
+									$('#mini').trigger('create');
+									$('tr:last').css({fontWeight:'bolder'});
+									$('tr:last').css({borderTopWidth: "1px",borderTopColor: "#333"});
+									
+							}
+						},
+						error: function(){
+							$('.loading').hide();
+							$("#mini").prepend('<div class="alert"><div class="typo-icon">The connection to the server timed out. Please check your internet connection.</div></div>');
+						}
+					});
+
+					 
+					return false;
+				
+				
+				
+									
+			});					
 			
 
-   
+$('#submit_btn').live('click', function(e){
+					e.preventDefault();
+					console.log('clicked full');
+					$('.alert').hide();
+					var number = $('input#number').val();
+					if(number == '')
+					{
+						$('div#number_alert').show();
+						$('input#number').focus();
+						return false;
+					}
+					var password = $('input#password').val();
+					if(password == '')
+					{
+						$('div#password_alert').show();
+						$('input#password').focus();
+						return false;
+					}
+					var dataString = 'number=' + number + '&password=' + password + '&limit=false';
+					
+					var ajax_load = "<img class='loading' src='img/ajax-loader.gif' alt='loading...' />";
+					//var loadUrl = "http://localhost/nssf/mobile/estatement";
+					
+					$("#login").prepend(ajax_load);
+					
+					var output = $('#login');
+					$.ajax({
+						//url: 'http://kaingroup.net/nssf_server/index.php/members/get/?'+dataString,
+						url: 'http://nssfug.org/apimembers/getMStatement/?'+dataString,
+						//url: 'http://196.0.10.138/xmlrpc_server/index.php/members/get/?'+dataString,
+						dataType: 'jsonp',
+						jsonp: 'jsoncallback',
+						timeout: 50000,
+						success: function(data, status){
+							if(data.error_no[0]==1)
+							{
+								 $('.loading').hide();
+								 $("#login").prepend('<div class="alert"><div class="typo-icon">No contributions found.</div></div>');
+								 
+							}
+							else if(data.error_no[0]==2)
+							{
+								$('.loading').hide();
+								 $("#login").prepend('<div class="alert"><div class="typo-icon">NSSF Number & password do not match.</div></div>');
+							}
+							else
+							{
+									//console.log(data);									
+									$('#login').html('');
+									$('#login').append('<a href="#" id="logout_btn" data-role="button" data-clickload="logout">Log Out</a>');
+									$('#login').append('<h3>'+data.name+'</h3>');
+									$('#login').append('<h4>'+data.begin+' to '+data.end+'</h4>');
+									var cont = '<table cellpadding="0" cellspacing="0" class="table3" width="99%">'+
+															'<tr>'+
+															'<thead>'+
+																'<th>Type</th>'+
+																'<th>Date</th>'+
+																'<th>Amount</th>'+
+															'</thead>'+
+															'<tbody>';
+															
+									$.each(data.tr, function(i,item){ 
+										//var tr = item.split(';');
+										var amt = addCommas(parseInt(item.amt));
+										cont += '<tr><td>'+item.type+'</td><td>'+item.date+'</td><td>'+amt+'</td></tr>';	
+									});	
+									
+									cont += '</tbody></tr></table>';
+									
+									$('#login').append(cont);					
+									
+									$('#login').trigger('create');
+									$('tr:last').css({fontWeight:'bolder'});
+									$('tr:last').css({borderTopWidth: "1px",borderTopColor: "#333"});
+							}
+						},
+						error: function(){
+							$('.loading').hide();
+							$("#login").prepend('<div class="alert"><div class="typo-icon">The connection to the server timed out. Please check your internet connection.</div></div>');
+						}
+					});
+
+					 
+					return false;
+				});	   
     
     

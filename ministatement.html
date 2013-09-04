@@ -77,20 +77,20 @@
               <div id="mini">
                   <form action="" method="post" name="login">
                         <label for="number" id="number_label">NSSF Number</label>
-                        <input name="number" id="number" type="text">
-                        <div class="alert" id="number_alert">
+                        <input name="number" id="number2" type="text">
+                        <div class="alert" id="number2_alert">
                             <div class="typo-icon">
                             NSSF Number is required.
                             </div>
                         </div>
                         <label for="password" id="password_label">Password</label>
-                        <input name="password" id="password" type="password">
-                        <div class="alert" id="password_alert">
+                        <input name="password" id="password2" type="password">
+                        <div class="alert" id="password2_alert">
                             <div class="typo-icon">
                             Password is required.
                             </div>
                         </div>
-                        <input type="submit" class="button buttonStrong right" value="Log in" name="buttonSubmit" id="submit_btn">
+                        <input type="submit" class="button buttonStrong right" value="Log in" name="buttonSubmit" id="submit_btn2">
                         <!--<a id="submit_btn" class="button button7">Submit</a>-->
                   </form>
               </div>
@@ -116,98 +116,11 @@ $('#miniPage').on('pagebeforeshow',function(event){
 					
 					
 			
-
-            $('#submit_btn').click(function(){
-				$('.alert').hide();
-				$('#logout_btn2').hide();
-				
-				
-					//$('.alert').hide();
-					var number = $('input#number').val();
-					if(number == '')
-					{
-						$('div#number_alert').show();
-						$('input#number').focus();
-						return false;
-					}
-					var password = $('input#password').val();
-					if(password == '')
-					{
-						$('div#password_alert').show();
-						$('input#password').focus();
-						return false;
-					}
-					var dataString = 'number=' + number + '&password=' + password + '&limit=true';
-					
-					var ajax_load = "<img class='loading' src='img/ajax-loader.gif' alt='loading...' />";
-					//var loadUrl = "http://localhost/nssf/mobile/estatement";
-					
-					$("#mini").prepend(ajax_load);
-					
-					var output = $('#mini');
-					$.ajax({
-						url: 'http://nssfug.org/apimembers/getMStatement/?'+dataString,
-						dataType: 'jsonp',
-						jsonp: 'jsoncallback',
-						timeout: 50000,
-						success: function(data, status){
-							if(data.error_no[0]==1)
-							{
-								 $('.loading').hide();
-								 $("#mini").prepend('<div class="alert"><div class="typo-icon">No contributions found for the last 30 months.</div></div>');
-								 
-							}
-							else if(data.error_no[0]==2)
-							{
-								$('.loading').hide();
-								 $("#mini").prepend('<div class="alert"><div class="typo-icon">NSSF Number & password do not match.</div></div>');
-							}
-							else
-							{
-									//console.log(data);									
-									$('#mini').html('');
-									$('#mini').append('<a href="#" id="logout_btn2" data-role="button" data-clickload="logout">Log Out</a>');
-									$('#mini').append('<h3>'+data.name+'</h3>');
-									$('#mini').append('<h4>'+data.begin+' to '+data.end+'</h4>');
-									var cont = '<table cellpadding="0" cellspacing="0" class="table3" width="99%">'+
-															'<tr>'+
-															'<thead>'+
-																'<th>Type</th>'+
-																'<th>Date</th>'+
-																'<th>Amount</th>'+
-															'</thead>'+
-															'<tbody>';
-															
-									$.each(data.tr, function(i,item){ 
-										//var tr = item.split(';');
-										var amt = addCommas(parseInt(item.amt));
-										cont += '<tr><td>'+item.type+'</td><td>'+item.date+'</td><td>'+amt+'</td></tr>';	
-									});	
-									
-									cont += '</tbody></tr></table>';
-									
-									$('#mini').append(cont);					
-									
-									$('#mini').trigger('create');
-									$('tr:last').css({fontWeight:'bolder'});
-									$('tr:last').css({borderTopWidth: "1px",borderTopColor: "#333"});
-									
-							}
-						},
-						error: function(){
-							$('.loading').hide();
-							$("#mini").prepend('<div class="alert"><div class="typo-icon">The connection to the server timed out. Please check your internet connection.</div></div>');
-						}
-					});
-
-					 
-					return false;
-				
-				
-				
-									
-			});
-            
+$(function(){
+	//alert('loaded');
+			$('.alert').hide();
+				$('#logout_btn').hide();        
+});            
             </script>       
     
     
