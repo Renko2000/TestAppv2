@@ -62,11 +62,7 @@ $(document).ready(function(){
             $('.menu', scrollContainer).css({    
                 'width' : totalWidth
             });            
-             $('.h_company', scrollContainer).css({    
-                'width' : totalWidth - parseInt($('.ui-page-active .menu .square:first').css('margin-bottom'))
-            });
-			$('.h_company').css('margin-bottom', parseInt($('.ui-page-active .menu .square:first').css('margin-bottom')));
-			$('.h_company').css('padding-top', 2*parseInt($('.ui-page-active .menu .square:first').css('margin-bottom')));
+            
             $('.company', scrollContainer).css({
                 'height': $('.menu', scrollContainer).height()
             });
@@ -150,7 +146,6 @@ $(document).ready(function(){
             
             $('ul.menu', scrollContainer).addClass('on');
             $('.company', scrollContainer).addClass('on');
-			$('.h_company', scrollContainer).addClass('on');
             
             setTimeout(function(){
                 

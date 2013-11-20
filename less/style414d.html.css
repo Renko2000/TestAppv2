@@ -673,24 +673,6 @@ form li { margin-bottom:10px; }
   opacity:0;
   filter:1;
 }
-.h_company {
-  background-color:#195aa5;
-  opacity:0;
-  filter:1;
-  height: 21%;
-  /*display: table-cell; */
-	vertical-align: middle;
-	text-align:center;
-}
-.h_company img {
-	height:70%;
-	margin: auto;
-	
-}
-.h_company.on {
-  opacity:1;
-  filter:1;
-}
 .company.on {
   opacity:1;
   filter:1;
@@ -742,7 +724,7 @@ li.postTitle a{ color:#689913;}
 .menu li ul { height:100%; }
 .menu li ul .square {
   float:none;
-  height:21%;
+  height:31%;
   margin:0 0 9% 0;
   position:relative;
   min-height:70px;
