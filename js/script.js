@@ -600,6 +600,47 @@ function numOrder(n, m)
 	return n - m;
 }
 
+$('#facebook-page').on('pagebeforeshow',function(event){
+    // code to execute on that page
+    //$(this) works as expected - refers the page
+		//console.log('Page before show called on you tube');
+		var fb = '<div id="fb-root"></div>'+
+        '<div class="padpage padbottom"><div class="fb-like-box" data-href="http://www.facebook.com/home.php#!/pages/NSSF-Uganda/165007786851692" data-width="520" data-colorscheme="light" data-show-faces="false" data-show-border="false" data-connections="8" data-stream="true" data-header="false"></div></div>';
+			
+		$(fb).insertAfter('#above-fb');
+		console.log('fb fired');
+		
+	});
+	
+$('#news-page').on('pagebeforeshow',function(event){
+	//location.reload(true);
+	$("#feedContent").html('<div style="text-align: center; width: 100%"><img src="img/ajax-loader.gif" alt="loader"></div>');
+	
+	$.jGFeed('http://nssfug.org/feed',
+        function(feeds){
+            if(!feeds){
+                $.mobile.showPageLoadingMsg("b", "Your internet connection seems to be down.", true);
+            }
+			$("#feedContent").html('');
+            for(var i=0;i<feeds.entries.length;i++){
+                var entry = feeds.entries[i];
+                var title = entry.title;
+                var link = entry.link;
+                var description = entry.contentSnippet;
+                var pubDate = entry.publishedDate;
+
+                var html = "<div class='entry'><ul><li class='postTitle'><a class='fancy block' href='" + link + "' target='_blank'>" + title + "</a></li></ul>";
+                html += "<em class='date'>" + pubDate + "</em>";
+                html += "<p class='description'>" + description + "</p></div>";
+				
+				
+                $("#feedContent").append($(html));
+				
+            }
+        }, 5);
+		$('#feedContent').trigger('create');
+});		
+
 $('#login-page').on('pagebeforeshow',function(event){
 	$('.alert').hide();
 	$('#logout_btn').hide();
