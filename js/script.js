@@ -8,6 +8,9 @@ $(document).ready(function(){
    } catch(e){
    }
    
+   $.mobile.allowCrossDomainPages = true;    
+   $.support.cors = true;
+   
    $(window).bind("resize", function(){
                $('ul.menu').removeClass('on');
                $('.square img, .company').removeClass('on');
