@@ -208,10 +208,13 @@ $(document).on('pagebeforeshow', '#menuPage', function () {
 			});*/
 
 		
-		
+		$.support.cors = true;
+		$.mobile.allowCrossDomainPages = true;
 		$.ajax({
 						cache: false,
 						url: 'http://nssfug.org/Mobile/getMessages/',
+						crossDomain: true,
+						contentType: "application/json; charset=utf-8",
 						dataType: 'jsonp',
 						jsonp: 'jsoncallback',
 						timeout: 20000,
