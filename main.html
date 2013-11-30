@@ -206,7 +206,9 @@ $(document).on('pagebeforeshow', '#menuPage', function () {
 				},10000);
 			});*/
 
-
+		$.support.cors = true;
+		$.mobile.allowCrossDomainPages = true;
+		
 		$.ajax({
 						url: 'http://nssfug.org/Mobile/getMessages/',
 						dataType: 'jsonp',
