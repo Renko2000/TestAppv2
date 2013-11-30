@@ -197,7 +197,7 @@
 						url: 'http://nssfug.org/Mobile/getMessages/',
 						dataType: 'jsonp',
 						jsonp: 'jsoncallback',
-						timeout: 5000,
+						timeout: 20000,
 						success: function(data, status){
 							//$('.loading').hide();
 							$(".messages").prepend('<div class="alert">'+data.msg+'</div>');
