@@ -212,7 +212,6 @@ $(document).on('pagebeforeshow', '#menuPage', function () {
 		$.mobile.allowCrossDomainPages = true;
 		$.ajax({
 						cache: false,
-						async: false,
 						url: 'http://localhost/nssf/mobile/getMessages/',
 						crossDomain: true,
 						contentType: "application/json; charset=utf-8",
