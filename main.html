@@ -158,8 +158,9 @@
       $.mobile.defaultPageTransition = 'fade';
       $.mobile.ignoreContentEnabled = true;
       $.mobile.page.prototype.options.domCache = true;
-
-      //$.mobile.ajaxEnabled = false;
+		$.support.cors = true;
+    $.mobile.allowCrossDomainPages = true;
+      $.mobile.ajaxEnabled = true;
     });
   </script>
 
@@ -206,10 +207,10 @@ $(document).on('pagebeforeshow', '#menuPage', function () {
 				},10000);
 			});*/
 
-		$.support.cors = true;
-		$.mobile.allowCrossDomainPages = true;
+		
 		
 		$.ajax({
+						cache: false,
 						url: 'http://nssfug.org/Mobile/getMessages/',
 						dataType: 'jsonp',
 						jsonp: 'jsoncallback',
