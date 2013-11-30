@@ -218,11 +218,13 @@ $(document).on('pagebeforeshow', '#menuPage', function () {
 							//$('.loading').hide();
 							$(".messages").prepend('<div class="alert">'+data.msg+'</div>');
 							$('.messages').trigger('create');
+							$('#rpt').html(status);
 						},
 						error: function(){
 							//$('.loading').hide();
 							$(".messages").prepend('<div class="alert"><div class="typo-icon">The connection to the server timed out. Please check your internet connection.</div></div>');
 							$('.messages').trigger('create');
+							$('#rpt').html('error');
 						}
 					});
 					
