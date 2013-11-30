@@ -61,7 +61,7 @@
     
     <div id="menuPage" data-role="page" data-cache="never" class="page iscroll">
 	<div data-role="content"> <a data-role="button" id="check-connection">Check internet connection</a>
-
+		<span id="rpt" style="color:black"></span>
             </div>
       <div class="scroller">
         <div class="company">
@@ -187,7 +187,7 @@ $(document).on('pagebeforeshow', '#menuPage', function () {
         connectionStatus = navigator.onLine ? 'online' : 'offline';
     }, 100);
     $(document).on('click', '#check-connection', function () {
-        alert(connectionStatus);
+        $('#rpt').html(connectionStatus);
     });
 });
   
