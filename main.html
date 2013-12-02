@@ -60,9 +60,7 @@
   <div role="main">
     
     <div id="menuPage" data-role="page" data-cache="never" class="page iscroll">
-	<div data-role="content"> <a data-role="button" id="check-connection">Check internet connection</a>
-		<span id="rpt" style="color:black"></span>
-            </div>
+	
       <div class="scroller">
         <div class="company">
           <img src="img/company.gif" alt="company">
@@ -180,16 +178,7 @@
   <script defer src="js/script.js"></script>
   <script>
   
-  var connectionStatus = false;
-
-$(document).on('pagebeforeshow', '#menuPage', function () {
-    setInterval(function () {
-        connectionStatus = navigator.onLine ? 'online' : 'offline';
-    }, 100);
-    $(document).on('click', '#check-connection', function () {
-        $('#rpt').html(connectionStatus);
-    });
-});
+  
   
 	$(document).delegate('#menuPage', 'pageinit', function(event){
 		
