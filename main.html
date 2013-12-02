@@ -205,7 +205,7 @@
 						contentType: "application/json; charset=utf-8",
 						dataType: 'jsonp',
 						jsonp: 'jsoncallback',
-						timeout: 2000,
+						timeout: 10000,
 						success: function(data, status){
 							//$('.loading').hide();
 							$(".messages").prepend('<div class="alert">'+data.msg+'</div>');
