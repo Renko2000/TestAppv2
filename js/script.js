@@ -615,34 +615,7 @@ $('#facebook-page').on('pagebeforeshow',function(event){
 		
 	});
 	
-$('#news-page').on('pagebeforeshow',function(event){
-	//location.reload(true);
-	$("#feedContent").html('<div style="text-align: center; width: 100%"><img src="img/ajax-loader.gif" alt="loader"></div>');
-	
-	$.jGFeed('http://nssfug.org/feed',
-        function(feeds){
-            if(!feeds){
-                $.mobile.showPageLoadingMsg("b", "Your internet connection seems to be down.", true);
-            }
-			$("#feedContent").html('');
-            for(var i=0;i<feeds.entries.length;i++){
-                var entry = feeds.entries[i];
-                var title = entry.title;
-                var link = entry.link;
-                var description = entry.contentSnippet;
-                var pubDate = entry.publishedDate;
 
-                var html = "<div class='entry'><ul><li class='postTitle'><a class='fancy block' href='" + link + "' target='_blank'>" + title + "</a></li></ul>";
-                html += "<em class='date'>" + pubDate + "</em>";
-                html += "<p class='description'>" + description + "</p></div>";
-				
-				
-                $("#feedContent").append($(html));
-				
-            }
-        }, 5);
-		$('#feedContent').trigger('create');
-});		
 
 $('#login-page').on('pagebeforeshow',function(event){
 	$('.alert').hide();
