@@ -8,9 +8,6 @@ $(document).ready(function(){
    } catch(e){
    }
    
-   $.mobile.allowCrossDomainPages = true;    
-   $.support.cors = true;
-   
    $(window).bind("resize", function(){
                $('ul.menu').removeClass('on');
                $('.square img, .company').removeClass('on');
@@ -602,20 +599,6 @@ function numOrder(n, m)
 {
 	return n - m;
 }
-
-$('#facebook-page').on('pagebeforeshow',function(event){
-    // code to execute on that page
-    //$(this) works as expected - refers the page
-		//console.log('Page before show called on you tube');
-		var fb = '<div id="fb-root"></div>'+
-        '<div class="padpage padbottom"><div class="fb-like-box" data-href="http://www.facebook.com/home.php#!/pages/NSSF-Uganda/165007786851692" data-width="520" data-colorscheme="light" data-show-faces="false" data-show-border="false" data-connections="8" data-stream="true" data-header="false"></div></div>';
-			
-		$(fb).insertAfter('#above-fb');
-		console.log('fb fired');
-		
-	});
-	
-
 
 $('#login-page').on('pagebeforeshow',function(event){
 	$('.alert').hide();

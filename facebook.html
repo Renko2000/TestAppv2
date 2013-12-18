@@ -34,8 +34,7 @@
 
     
   <!-- LESS converted to css and minified via build script -->
-  <link rel="stylesheet" href="less/style414d.html.css">
-  
+  <link rel="stylesheet" href="less/style414d.css">
   <!-- end LESS -->
   <!-- fonts -->
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
@@ -83,13 +82,26 @@
                     }(document, 'script', 'facebook-jssdk'));
                     
          </script>
-    
+    <script>
+    $('#facebook-page').on('pagebeforeshow',function(event){
+    // code to execute on that page
+    //$(this) works as expected - refers the page
+		//console.log('Page before show called on you tube');
+		var fb = '<div id="fb-root"></div>'+
+        '<div class="padpage padbottom"><div class="fb-like-box" data-href="http://www.facebook.com/home.php#!/pages/NSSF-Uganda/165007786851692" data-width="520" data-colorscheme="light" data-show-faces="false" data-show-border="false" data-connections="8" data-stream="true" data-header="false"></div></div>';
+			
+		$(fb).insertAfter('#above-fb');
+		console.log('fb fired');
+		
+	});
+	
+    </script>
       <div class="topGrahic"></div>
-      <a href="main.html" rel="external" class="menuButton">
+      <a href="index.html" class="menuButton">
         <img src="img/menu-button.png" alt="Menu">
       </a>
       <div class="padpage padtop" id="above-fb">
-        <h1><a class="back" href="social.html" rel="external"><img src="img/icon-back.png" alt="Back"> Facebook</a></h1>
+        <h1><a class="back" href="social.html"><img src="img/icon-back.png" alt="Back"> Facebook</a></h1>
         <p>
           Access our social media from the comfort of your office, home or on the go anywhere in the world.
         </p>
@@ -98,7 +110,7 @@
     
       
     
-    <div id="fb-root"></div>
+    
     
      
                     
@@ -121,8 +133,8 @@
         <div class="footer">
           <div class="social right">
             
-            <a href="http://twitter.com/nssfug/" rel="external" target="_blank"> <img src="img/icon-twitter.png" alt="Follow us on Twitter"></a>
-            <a href="http://facebook.com/nssfug/" rel="external" target="_blank"> <img src="img/icon-facebook.png" alt="Like us on Facebook"></a>
+            <a href="http://twitter.com/nssfug/" target="_blank"> <img src="img/icon-twitter.png" alt="Follow us on Twitter"></a>
+            <a href="http://facebook.com/nssfug/" target="_blank"> <img src="img/icon-facebook.png" alt="Like us on Facebook"></a>
           </div>
           
           <div class="copyright left">
