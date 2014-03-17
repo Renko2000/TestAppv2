@@ -21,12 +21,13 @@
         The "device" permission is required for the 'deviceready' event.
     -->
     <feature name="http://api.phonegap.com/1.0/device" />
-	<gap:platform name="blackberry" />
+
     <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires.
     -->
+	<gap:platform name="ios" />
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
@@ -52,7 +53,7 @@
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
 
-    <content src="index.html" />
+    
     <icon src="icon.png" />
 	<!-- Define app icon for each platform. 
     <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
